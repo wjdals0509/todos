@@ -1,6 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
+  const [weather, setWeather] = useState(null);
+  const WeatherBox = ({ weather }) => {
+    return (
+      <div className="weather-box">
+        <div>{weather?.name}</div>
+        <div>{`${weather?.main.temp}°C`}</div>
+        <div>{weather?.weather[0].description}</div>
+      </div>
+    );
+  };
+
+  // 현재의 위치 정보 가져오기
+  const getCurrentLocation = () => {
+    // geolocation으로 지리적 정보를 얻을 수 있음
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        let lat = position.coords.latitude; // 위도
+        let lon = position.coords.longitude; // 경도
+
+        let key = "f5bccfe6be285ceffd8d2665ec17c7f2";
+
+        axios
+          .get(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`
+          )
+          .then((data) => {
+            setWeather(data);
+          });
+      });
+    } else {
+      alert("위치정보를 사용할 수 없습니다.");
+    }
+  };
+
+  useEffect(() => {
+    getCurrentLocation();
+  }, []);
+
   // input field control
   // todo : input의 value를 받아오는 변수
   // setTodo : input의 value를 수정하는 함수 (input 안의 내용이 변경됨)
@@ -39,6 +78,7 @@ function App() {
     <div>
       {/* toDo의 갯수 출력 */}
       <h1>My To Dos ({toDos.length})</h1>
+      <div>{weather && <WeatherBox weather={weather}></WeatherBox>}</div>
       <form onSubmit={onSubmit}>
         {/* to do 입력*/}
         <input
