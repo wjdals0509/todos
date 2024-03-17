@@ -29,6 +29,8 @@ function App() {
     //    setToDo 함수를 사용해서 수정해야함
     setToDo("");
   };
+  console.log(toDos);
+  // toDos의 요소마다 component 생성
   return (
     <div>
       {/* toDo의 갯수 출력 */}
@@ -44,6 +46,13 @@ function App() {
         {/* button 클릭 시 form의 submit 이벤트 발생 */}
         <button>Add To Do</button>
       </form>
+      <hr />
+      {/* map()의 괄호안에 들어가는 함수는 배열의 모든 item에 적용됨 */}
+      <ul>
+        {toDos.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
     </div>
   );
 }
