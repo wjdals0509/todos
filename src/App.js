@@ -31,6 +31,7 @@ function App() {
   };
   return (
     <div>
+      {/* toDo의 갯수 출력 */}
       <h1>My To Dos ({toDos.length})</h1>
       <form onSubmit={onSubmit}>
         {/* to do 입력*/}
