@@ -6,7 +6,7 @@ function App() {
   const WeatherBox = ({ weather }) => {
     return (
       <div className="weather-box">
-        <div>{weather?.name}</div>
+        <div>{weather.name}</div>
         <div>{`${weather?.main.temp}°C`}</div>
         <div>{weather?.weather[0].description}</div>
       </div>
@@ -25,10 +25,11 @@ function App() {
 
         axios
           .get(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric`
           )
           .then((data) => {
             setWeather(data);
+            //console.log(data);
           });
       });
     } else {
