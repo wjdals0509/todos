@@ -29,8 +29,6 @@ function App() {
     //    setToDo 함수를 사용해서 수정해야함
     setToDo("");
   };
-  console.log(toDos);
-  // toDos의 요소마다 component 생성
   return (
     <div>
       {/* toDo의 갯수 출력 */}
@@ -47,10 +45,13 @@ function App() {
         <button>Add To Do</button>
       </form>
       <hr />
-      {/* map()의 괄호안에 들어가는 함수는 배열의 모든 item에 적용됨 */}
       <ul>
-        {toDos.map((item) => (
-          <li>{item}</li>
+        {/* map()의 괄호안에 들어가는 함수는 배열의 모든 item에 적용됨  */}
+        {/* .map(value, index, array) */}
+        {toDos.map((item, index) => (
+          // 동일한 component의 리스트를 render할 때는 key라는 prop을 넣어야함
+          // key는 고유한 값이어야 하기 때문에 index를 넣어줌
+          <li key={index}>{item}</li>
         ))}
       </ul>
     </div>
